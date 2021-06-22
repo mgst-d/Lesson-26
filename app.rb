@@ -19,6 +19,7 @@ post '/visit' do
 	@clientname = params[:clientname]
 	@clientfamily = params[:clientfamily]
 	@visittime = params[:visittime]
+	@choice = params[:choice]
 
 	f = File.open './public/user.txt', 'a'
 	f.write "Имя клиента: #{params[:clientname]}, фамилия: #{params[:clientfamily]}, время визита: #{params[:visittime]}, мастер: #{params[:choice]}, цвет: #{params[:color]}\n"

@@ -16,9 +16,9 @@
   <div class="form-group">
     <label>Выберите мастера:</label>
  		<select class="form-control" name="choice">
-  			<option>Mark</option>
-  			<option>Jessie</option>
-  			<option>Fred</option>
+  			<option <%= @choice == 'Mark'? 'selected' : '' %>>Mark</option>
+  			<option <%= params[:choice] == 'Jessie'? 'selected' : '' %>>Jessie</option>
+  			<option <%=  'selected' if @choice == 'Fred'%>>Fred</option>
   		</select>
   </div>
   <div class="form-group">

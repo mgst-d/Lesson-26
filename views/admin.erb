@@ -1,0 +1,26 @@
+<table class="table">
+	<thead>
+        <tr>
+          <th>id</th>
+          <th>Имя</th>
+          <th>Телефон</th>
+          <th>Date and Time</th>
+          <th>Barber</th>
+          <th>Color</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+<% @mh.each do |h|%>
+		<tr>
+          <th scope="row"><%= h['Id']%></th>
+          <td><%= h['Name']%></td>
+          <td><%= h['Phone']%></td>
+          <td><%= h['DateStamp']%></td>
+          <td><%= h['Barber']%></td>
+          <td><%= h['Color']%></td>
+        </tr>
+<% end %>
+
+      </tbody>
+</table>

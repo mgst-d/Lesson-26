@@ -5,6 +5,12 @@ require 'sinatra/reloader'
 require 'sqlite3'
 
 #require 'pony'
+configure do
+	db = SQLite3::Database.new './DataBase/BarberShop.db'
+	db.execute 'create table if not exists Barbers (Id integer primary key autoincrement, Barbers text)'
+
+	
+end
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -24,6 +30,12 @@ get '/about' do
 	erb :about
 end
 get '/visit' do
+	db = SQLite3::Database.new './DataBase/BarberShop.db'
+	db.results_as_hash = true
+	$mb = []
+	db.execute 'select *from Barbers' do |h|
+		$mb << h
+	end
 	erb :visit
 end
 post '/visit' do
@@ -35,7 +47,6 @@ post '/visit' do
 	f = File.open './public/user.txt', 'a'
 	f.write "Имя клиента: #{params[:clientname]}, телефон: #{params[:phone]}, время визита: #{params[:visittime]}, мастер: #{params[:choice]}, цвет: #{params[:color]}\n"
 	f.close
-
 #	Pony.mail(:to => 'and8511@ya.ru', :from => 'my heary', :subject => 'My first mail', :body => "Имя клиента: #{params[:clientname]}, фамилия: #{params[:clientfamily]}, время визита: #{params[:visittime]}, мастер: #{params[:choice]}, цвет: #{params[:color]}\n")
 #		if params[:clientname] == ''
 #			@error = 'Не введено имя'
@@ -53,13 +64,14 @@ post '/visit' do
 		end
 	end
 	db = SQLite3::Database.new './DataBase/BarberShop.db'
+	db.results_as_hash = true
 	db.execute 'create table if not exists
-	users
-	(id integer primary key autoincrement, Name, Phone, Datestamp, Barber, Color)'
-	db.execute 'insert into users
-	(name, Phone, Datestamp, Barber, Color)
-	values (?,?,?,?,?)', [@clientname, @phone, @visittime, @choice, params[:color]]
-
+		users
+		(id integer primary key autoincrement, Name, Phone, Datestamp, Barber, Color)'
+		db.execute 'insert into users
+		(name, Phone, Datestamp, Barber, Color)
+		values (?,?,?,?,?)', [@clientname, @phone, @visittime, @choice, params[:color]]
+	
 erb "<h2>Спасибо! Мы будем Вас ждать!</h2>"
 end
 get '/contacts' do

@@ -16,7 +16,7 @@
   <div class="form-group">
     <label>Выберите мастера:</label>
  		<select class="form-control" name="choice">
-      <% $mb.each do |h|%>
+      <% @mb.each do |h|%>
   			<option <%= @choice == h['Barbers']? 'selected' : '' %>><%=h['Barbers']%></option>
         <% end %>
   		</select>
@@ -45,7 +45,9 @@
 $(function(){
 
 	$('.aaa').css('background-color', 'yellow');
-//	$('#color').simplecolorpicker(); <option <%= params[:choice] == 'Jessie'? 'selected' : '' %>>Jessie</option>   <option <%=  'selected' if @choice == 'Fred'%>>Fred</option>
+//	$('#color').simplecolorpicker(); <option <%= params[:choice] == 'Jessie'? 'selected' : '' %>>
+//Jessie</option>   <option <%=  'selected' if @choice == 'Fred'%>>Fred</option>
   $('#datetimepicker').datetimepicker();
+  $('#color').simplecolorpicker();
 });
 </script>
